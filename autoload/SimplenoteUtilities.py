@@ -284,6 +284,8 @@ class SimplenoteVimInterface(object):
             queue.put(key)
             t = NoteFetcher(queue, note_cache, self.simplenote)
             t.start()
+            # (ujtakk): suppress threading to avoid stalling
+            t.join()
 
         queue.join()
         return note_cache
